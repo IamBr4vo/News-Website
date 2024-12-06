@@ -1,0 +1,63 @@
+<%- include('../partials/header') %>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Columna Principal -->
+        <div class="col-md-8">
+            <h1 class="mb-3"><%= news.title %></h1>
+            <p class="text-muted">
+                <%= news.category %> | <%= news.author %>
+            </p>
+            <p class="text-muted">
+                <%= new Intl.DateTimeFormat('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric', 
+                    hour: 'numeric', 
+                    minute: 'numeric', 
+                    hour12: true 
+                }).format(new Date(news.createdAt)) %>
+            </p>
+            <% if (news.image) { %>
+                <img 
+                    src="<%= news.image %>" 
+                    alt="Imagen de <%= news.title %>" 
+                    class="img-fluid mb-4"
+                >
+            <% } %>
+            <hr>
+            <% 
+                // Dividir el contenido en párrafos basados en puntos
+                const paragraphs = news.content.split('. ').map(para => para.trim() + '.');
+            %>
+            <% paragraphs.forEach(para => { %>
+                <p class="mt-4"><%= para %></p>
+            <% }) %>
+        </div>
+
+        <!-- Noticias Relacionadas -->
+        <div class="col-md-4">
+            <h5 class="mb-4">Lo más leído</h5>
+            <ul class="list-group related-news-list">
+                <% relatedNews.forEach(article => { %>
+                <li class="list-group-item">
+                    <a href="/news/<%= article._id %>" class="text-decoration-none">
+                        <strong><%= article.title %></strong>
+                    </a>
+                    <br>
+                    <small class="text-muted">
+                        <%= new Intl.DateTimeFormat('es-ES', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric', 
+                            hour: 'numeric', 
+                            minute: 'numeric', 
+                            hour12: true 
+                        }).format(new Date(article.createdAt)) %>
+                    </small>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

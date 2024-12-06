@@ -1,0 +1,76 @@
+<%- include('../partials/header') %>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="text-center">Registrar Usuario</h2>
+        <% if (error) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %>
+        <% if (success) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %>
+        <form action="/users/register" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    value="<%= name || '' %>"
+                    required
+                >
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    value="<%= email || '' %>"
+                    required
+                >
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    value="<%= password || '' %>"
+                    required
+                >
+                <small class="form-text text-muted">Debe tener al menos 6 caracteres.</small>
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value="<%= confirmPassword || '' %>"
+                    required
+                >
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Desaparecer alertas automáticamente después de 3 segundos
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => alert.classList.add('fade'));
+        setTimeout(() => alerts.forEach(alert => alert.remove()), 500);
+    }, 3000);
+</script>
+<%- include('../partials/footer') %>

@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+<div class="container mt-3">
+    <h1 class="text-center mb-4">Crear Nueva Noticia</h1>
+
+    <% if (error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+    <% if (success) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+    <form action="/news" method="POST" enctype="multipart/form-data" class="p-4 rounded shadow-lg bg-light">
+        <div class="mb-3">
+            <label for="title" class="form-label fw-bold">Título</label>
+            <div class="input-group">
+                <span class="input-group-text bg-danger text-white"><i class="bi bi-card-text"></i></span>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Escribe el título de la noticia" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label fw-bold">Contenido</label>
+            <textarea class="form-control" id="content" name="content" rows="6" placeholder="Escribe el contenido completo de la noticia" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label fw-bold">Categoría</label>
+            <div class="input-group">
+                <span class="input-group-text bg-danger text-white"><i class="bi bi-tag"></i></span>
+                <input type="text" class="form-control" id="category" name="category" placeholder="Ejemplo: Deportes, Política" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="keywords" class="form-label fw-bold">Palabras Clave (separadas por comas)</label>
+            <div class="input-group">
+                <span class="input-group-text bg-danger text-white"><i class="bi bi-hash"></i></span>
+                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Ejemplo: fútbol, campeonato, goles">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label fw-bold">Autor</label>
+            <div class="input-group">
+                <span class="input-group-text bg-danger text-white"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control" id="author" name="author" placeholder="Nombre del autor de la noticia" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label fw-bold">Seleccionar Imagen</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-danger btn-lg w-50">Guardar Noticia</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => alert.classList.add('fade'));
+        setTimeout(() => alerts.forEach(alert => alert.remove()), 500);
+    }, 3000);
+</script>
+<%- include('../partials/footer') %>

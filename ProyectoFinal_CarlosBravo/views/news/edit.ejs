@@ -1,0 +1,87 @@
+<%- include('../partials/header') %>
+<h1 class="mb-4">Editar Noticia</h1>
+
+<% if (error) { %>
+<div class="alert alert-danger" role="alert">
+    <%= error %>
+</div>
+<% } %>
+<% if (success) { %>
+<div class="alert alert-success" role="alert">
+    <%= success %>
+</div>
+<% } %>
+
+<form action="/news/edit/<%= news._id %>" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            value="<%= news.title %>"
+            required
+        >
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Contenido</label>
+        <textarea
+            class="form-control"
+            id="content"
+            name="content"
+            rows="6"
+            required
+        ><%= news.content %></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Categoría</label>
+        <input
+            type="text"
+            class="form-control"
+            id="category"
+            name="category"
+            value="<%= news.category %>"
+            required
+        >
+    </div>
+    <div class="mb-3">
+        <label for="keywords" class="form-label">Palabras Clave (separadas por comas)</label>
+        <input
+            type="text"
+            class="form-control"
+            id="keywords"
+            name="keywords"
+            value="<%= news.keywords.join(', ') %>"
+        >
+    </div>
+    <div class="mb-3">
+        <label for="author" class="form-label">Autor</label>
+        <input
+            type="text"
+            class="form-control"
+            id="author"
+            name="author"
+            value="<%= news.author %>"
+            required
+        >
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Seleccionar Imagen</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        <% if (news.image) { %>
+            <p class="mt-2">Imagen actual: <img src="<%= news.image %>" alt="Imagen" class="img-thumbnail" style="max-height: 100px;"></p>
+        <% } %>
+    </div>    
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
+
+<script>
+    // Desaparecer alertas automáticamente después de 3 segundos
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => alert.classList.add('fade'));
+        setTimeout(() => alerts.forEach(alert => alert.remove()), 500); // Tiempo adicional para el fade
+    }, 3000);
+</script>
+<%- include('../partials/footer') %>

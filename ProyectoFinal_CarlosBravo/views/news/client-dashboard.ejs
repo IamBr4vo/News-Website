@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+<h1 class="mb-2 text-center">Últimas noticias</h1>
+<p class="text-center mb-5">
+    <strong>Fecha:</strong> <%= new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+</p>
+
+<div class="row g-3">
+    <% news.forEach(article => { %>
+    <div class="col-md-6 col-12"> <!-- col-12 para ocupar ancho completo en pantallas pequeñas -->
+        <div class="news-card d-flex">
+            <a href="/news/<%= article._id %>">
+                <img src="<%= article.image %>" alt="<%= article.title %>" class="news-image">
+            </a>
+            <div class="news-content">
+                <h5 class="news-title">
+                    <a href="/news/<%= article._id %>"><%= article.title %></a>
+                </h5>
+                <p class="news-category">
+                    <%= article.category %> - <span class="news-author text-dark"><%= article.author %></span>
+                </p>
+                <p class="news-time text-muted">
+                    <%= new Date(article.createdAt).toLocaleTimeString() %>
+                </p>
+            </div>
+        </div>
+    </div>
+    <% }) %>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="col-md-6">
+            <h2 class="text-center mb-5">Iniciar Sesión</h2>
+            <% if (error) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+                    <form action="/login" method="POST">
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="email-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Escribe tu correo electrónico" aria-describedby="email-icon"
+                                    value="<%= email || '' %>" required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="password-icon">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Escribe tu contraseña" aria-describedby="password-icon" required>
+                                <span class="input-group-text" id="toggle-password">
+                                    <i class="fas fa-eye" id="password-toggle-icon"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-75 mt-4">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <span>¿Aún no tienes una cuenta? <a href="/users/register"
+                                class="text-danger fw-bold">Registrarse</a></span>
+                    </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => alert.classList.add('fade'));
+            setTimeout(() => alerts.forEach(alert => alert.remove()), 500);
+        }, 3000);
+
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordField = document.getElementById('password');
+        const passwordIcon = document.getElementById('password-toggle-icon');
+
+        togglePassword.addEventListener('click', () => {
+            // Alternar entre 'password' y 'text'
+            const isPassword = passwordField.type === 'password';
+            passwordField.type = isPassword ? 'text' : 'password';
+
+            // Cambiar el ícono
+            passwordIcon.classList.toggle('fa-eye');
+            passwordIcon.classList.toggle('fa-eye-slash');
+        });
+    </script>
+    <%- include('../partials/footer') %>
